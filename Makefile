@@ -6,7 +6,7 @@
 #    By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/11 07:31:18 by rde-mour          #+#    #+#              #
-#    Updated: 2026/03/11 11:38:05 by rde-mour         ###   ########.org.br    #
+#    Updated: 2026/03/14 18:50:39 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,11 @@ FILES				:= ft_strlen.s \
 					   ft_read.s \
 					   ft_strdup.s
 
-FILES_BONUS			:= $(FILES:%.s=%%.s)
+FILES_BONUS			:= ft_atoi_base.s \
+					   ft_list_push_front.s \
+					   ft_list_size.s \
+					   ft_list_sort.s \
+					   ft_list_remove_if.s
 
 SRCSDIR				:= ./srcs
 OBJSDIR 			:= ./objs
@@ -51,8 +55,8 @@ NASMFLAGS			:= -f elf64
 
 
 ifdef				WITH_BONUS
-	SRCS			:= $(FILES_BONUS:%.s=$(SRCSDIR_BONUS)/%.s)
-	OBJS			:= $(FILES_BONUS:%.s=$(OBJSDIR_BONUS)/%.o)
+	SRCS			:= $(FILES_BONUS:%.s=$(SRCSDIR_BONUS)/%_bonus.s)
+	OBJS			:= $(FILES_BONUS:%.s=$(OBJSDIR_BONUS)/%_bonus.o)
 	INCLUDES		:= $(INCLUDES_BONUS)
 	MESSAGE			:= bonus
 endif

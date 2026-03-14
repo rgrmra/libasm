@@ -9,14 +9,16 @@ section .text
 
 ; int ft_isalnum(int c);
 ft_isalnum:
-	push	edi
+	push	rbx
+	mov		ebx, edi
 
 	call	ft_isalpha
 	test	eax, eax
-	jne		.return
+	jnz		.done
 
-	pop		edi
+	mov		edi, ebx
 	call	ft_isdigit
 
-.return:
+.done:
+	pop		rbx
 	ret

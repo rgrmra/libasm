@@ -57,17 +57,34 @@
 //	return (EXIT_SUCCESS);
 //}
 
-char *ft_strdup(const char *s);
+//char *ft_strdup(const char *s);
+//
+//int	main(void)
+//{
+//	const char	*str;
+//	char		*cpy;
+//
+//	str = "Hello, World!";
+//	cpy = ft_strdup(str);
+//	printf("str: %s\n", str);
+//	printf("cpy: %s\n", cpy);
+//	free(cpy);
+//	return (EXIT_SUCCESS);
+//}
+
+int	ft_atoi_base(char *str, char *base);
 
 int	main(void)
 {
-	const char	*str;
-	char		*cpy;
+	char	str[20];
+	char	base[20];
+	int		value;
 
-	str = "Hello, World!";
-	cpy = ft_strdup(str);
+	strcpy(str, "42");
+	strcpy(base, "0123456789");
+	value = ft_atoi_base(str, base);
+	printf("value: %d\n", value);
 	printf("str: %s\n", str);
-	printf("cpy: %s\n", cpy);
-	free(cpy);
+	printf("base: %s\n", base);
 	return (EXIT_SUCCESS);
 }

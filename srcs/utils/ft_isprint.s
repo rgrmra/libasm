@@ -6,7 +6,7 @@ section .text
 
 ; int ft_isprint(int c);
 ft_isprint:
-	sub		edi, ' '
+	sub		edi, 32
 	cmp		edi, 94
 	setbe	al
 	movzx	eax, al

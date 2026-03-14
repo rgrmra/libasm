@@ -6,7 +6,7 @@ section .text
 
 ; int ft_isdigit(int c);
 ft_isdigit:
-	sub		edi, '0'
+	sub		edi, 48
 	cmp		edi, 9
 	setbe	al
 	movzx	eax, al

@@ -1,0 +1,37 @@
+bits 64
+
+extern ft_strlen
+
+global ft_strrchr
+
+section .text
+
+; char *ft_strrchr(const char *s, int c);
+ft_strrchr:
+	push	rdi
+	push	rsi
+	call	ft_strlen
+
+	pop		rsi
+	pop		rdi
+
+	add		rdi, rax
+
+.loop:
+	cmp		byte [rdi], sil
+	je		.found
+
+	test	rax, rax
+	jz		.not_found
+
+	dec		rdi
+	dec		rax
+	jmp		.loop
+
+.found:
+	mov		rax, rdi
+	ret
+
+.not_found:
+	xor		rax, rax
+	ret
