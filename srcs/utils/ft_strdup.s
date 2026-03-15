@@ -1,5 +1,6 @@
 bits 64
 
+default rel
 extern malloc
 
 global ft_strdup
@@ -18,20 +19,16 @@ ft_strdup:
 
 	push	rcx
 	mov		rdi, rcx
-	call	malloc
+	call	malloc wrt ..plt
+	pop		rcx
 
 	test	rax, rax
-	jz		.malloc_error
+	jz		.done
 
-	pop		rcx
-	mov		rsi, rbx
 	mov		rdi, rax
+	mov		rsi, rbx
 	rep		movsb
 
-	pop		rbx
-	ret
-
-.malloc_error:
-	pop		rcx
+.done:
 	pop		rbx
 	ret

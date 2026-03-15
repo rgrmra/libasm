@@ -9,39 +9,31 @@ section .text
 
 ; size_t ft_strlcpy(char *dst, const char *src, size_t n);
 ft_strlcpy:
-	push	rdi
-	push	rsi
-	push	rdx
+	mov		r8, rdi
+	mov		r9, rsi
 
 	mov		rdi, rsi
-	call	ft_strlen
-
-	pop		rdx
-	pop		rsi
-	pop		rdi
+	mov		rcx, -1
+	xor		al, al
+	repne	scasb
+	not		rcx
+	dec		rcx
+	mov		rax, rcx
 
 	test	rdx, rdx
 	jz		.done
 
-	mov		rcx, rdx
-	dec		rcx
-	cmp		rcx, rax
-	jle		.copy
-	mov		rcx, rax
-	
+	mov		r10, rdx
+	dec		r10
+	cmp		rcx, r10
+	jb		.copy
+	mov		rcx, r10
+
 .copy:
-	push 	rax
-	push	rcx
-	push	rdi
-
-	mov		rdx, rcx
-	call	ft_memcpy
-	
-	pop		rdi
-	pop		rcx
-	pop		rax
-
-	mov		byte [rdi + rcx], 0
+	mov		rdi, r8
+	mov		rsi, r9
+	rep		movsb
+	mov		byte [rdi], 0
 
 .done:
 	ret

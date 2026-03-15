@@ -7,12 +7,12 @@ section .text
 ; int ft_isprint(int c);
 ft_isprint:
 	cmp		edi, ' '
-	jl		.false
+	jb		.false
 
 	cmp		edi, '~'
-	jg		.false
+	ja		.false
 
-	mov		rax, rax
+	mov		rax, 1
 	ret
 
 .false:

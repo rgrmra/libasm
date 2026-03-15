@@ -6,7 +6,7 @@ section .text
 
 ; int ft_tolower(int c);
 ft_tolower:
-	mov		al, dil
+	mov		eax, edi
 	cmp		al, 'A'
 	jb		.end
 	cmp		al, 'Z'
@@ -14,5 +14,4 @@ ft_tolower:
 	or		al, 32
 
 .end:
-	movzx	eax, al
 	ret

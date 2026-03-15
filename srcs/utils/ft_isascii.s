@@ -7,7 +7,7 @@ section .text
 ; int ft_isascii(int c);
 ft_isascii:
 	cmp		edi, 127
-	jg		.false
+	ja		.false
 
 	mov		rax, 1
 	ret

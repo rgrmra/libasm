@@ -6,7 +6,7 @@ section .text
 
 ; int ft_toupper(int c);
 ft_toupper:
-	mov		al, dil
+	mov		eax, edi
 	cmp		al, 'a'
 	jb		.end
 	cmp		al, 'z'
@@ -14,5 +14,4 @@ ft_toupper:
 	xor		al, 32
 
 .end:
-	movzx	eax, al
 	ret

@@ -9,29 +9,26 @@ section .text
 ; void *ft_memmove(void *dest, const void *src, size_t n);
 ft_memmove:
 	mov		rax, rdi
+
 	test	rdx, rdx
 	jz		.done
 
+	mov		rcx, rdx
+
 	cmp		rdi, rsi
-	je		.done
-	jl		ft_memcpy
+	jb		.backward
+
+	lea		rdi, [rdi + rdx - 1]
+	lea		rsi, [rsi + rdx - 1]
+
+	std
+	rep		movsb
+	cld
+
+	jmp		.done
 
 .backward:
-	add		rdi, rdx
-	dec		rdi
-
-	add		rsi, rdx
-	dec		rsi
-
-.loop:
-	mov		cl, byte [rsi]
-	mov		byte [rdi], cl
-
-	dec rsi
-	dec	rdi
-
-	dec	rdx
-	jnz		.loop
+	rep		movsb
 
 .done:
 	ret

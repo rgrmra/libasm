@@ -10,15 +10,15 @@ ft_isspace:
 	je		.true
 
 	cmp		edi, 9
-	jl		.false
+	jb		.false
 
 	cmp		edi, 13
-	jle		.true
-
-.false:
-	xor		eax, eax
-	ret
+	ja		.false
 
 .true:
 	mov		eax, 1
+	ret
+
+.false:
+	xor		eax, eax
 	ret
