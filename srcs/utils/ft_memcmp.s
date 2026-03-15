@@ -10,11 +10,11 @@ ft_memcmp:
 	mov		rcx, rdx
 
 	repe	cmpsb
-	je		.equal
+	je		.true
 
 	movzx	eax, byte [rdi - 1]
-	movzx	rcx, byte [rsi - 1]
+	movzx	ecx, byte [rsi - 1]
 	sub		eax, ecx
 
-.equal:
+.true:
 	ret

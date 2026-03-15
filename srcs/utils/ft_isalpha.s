@@ -7,8 +7,14 @@ section .text
 ; int ft_isalpha(int c);
 ft_isalpha:
 	or		edi, 32
-	sub		edi, 97
-	cmp		edi, 25
-	setbe	al
-	movzx	eax, al
+	cmp		edi, 'a'
+	jl		.false
+	cmp		edi, 'z'
+	jg		.false
+
+	mov		rax, 1
+	ret
+
+.false:
+	xor		rax, rax
 	ret

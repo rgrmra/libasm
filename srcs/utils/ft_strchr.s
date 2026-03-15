@@ -1,23 +1,26 @@
 bits 64
 
-extern ft_memchr
-extern ft_strlen
-
 global ft_strchr
 
 section .text
 
 ; char *ft_strchr(const char *s, int c);
 ft_strchr:
-;	push	rdi
-;	push	rsi
+	mov		r8, rdi
+	mov		rcx, -1
+	xor		al, al
+	repne	scasb
+	not		rcx
 
-	call	ft_strlen
+	mov		rdi, r8
+	mov		al, sil
+	repne	scasb
+	jnz		.false
 
-;	pop		rsi
-;	pop		rdi
+	dec		rdi
+	mov		rax, rdi
+	ret
 
-	mov		rdx, rax
-	inc		rdx
-
-	jmp		ft_memchr
+.false:
+	xor		rax, rax
+	ret

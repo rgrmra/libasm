@@ -6,18 +6,19 @@ section .text
 
 ; int ft_isspace(int c);
 ft_isspace:
-	cmp		edi, 9
-	jl		.not_space
-	cmp		edi, 13
-	jle		.is_space
-	cmp		edi, 32
-	je		.is_space
+	cmp		edi, ' '
+	je		.true
 
-.not_space:
+	cmp		edi, 9
+	jl		.false
+
+	cmp		edi, 13
+	jle		.true
+
+.false:
 	xor		eax, eax
 	ret
 
-.is_space:
+.true:
 	mov		eax, 1
 	ret
-

@@ -1,7 +1,5 @@
 bits 64
 
-extern ft_strcpy
-extern ft_strlen
 extern malloc
 
 global ft_strdup
@@ -10,20 +8,30 @@ section .text
 
 ; char *ft_strdup(const char *s);
 ft_strdup:
-	push	rdi
-	call	ft_strlen
+	push	rbx
+	mov		rbx, rdi
 
-	mov		rdi, rax
-	inc		rdi
+	xor		al, al
+	mov		rcx, -1
+	repne 	scasb
+	not		rcx
+
+	push	rcx
+	mov		rdi, rcx
 	call	malloc
 
 	test	rax, rax
-	jnz		.copy
+	jz		.malloc_error
 
-	pop		rdi
+	pop		rcx
+	mov		rsi, rbx
+	mov		rdi, rax
+	rep		movsb
+
+	pop		rbx
 	ret
 
-.copy:
-	mov		rdi, rax
-	pop		rsi
-	jmp		ft_strcpy
+.malloc_error:
+	pop		rcx
+	pop		rbx
+	ret

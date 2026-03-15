@@ -1,24 +1,26 @@
 bits 64
 
-extern ft_isalpha
-extern ft_isdigit
-
 global ft_isalnum
 
 section .text
 
 ; int ft_isalnum(int c);
 ft_isalnum:
-	push	rbx
-	mov		ebx, edi
+	cmp		edi, '0'
+	jl		.false
+	cmp		edi, '9'
+	jle		.true
 
-	call	ft_isalpha
-	test	eax, eax
-	jnz		.done
+	or		edi, 32
+	cmp		edi, 'a'
+	jl		.false
+	cmp		edi, 'z'
+	jg		.false
 
-	mov		edi, ebx
-	call	ft_isdigit
+.true:
+	mov		rax, 1
+	ret
 
-.done:
-	pop		rbx
+.false:
+	xor		rax, rax
 	ret

@@ -1,5 +1,7 @@
 bits 64
 
+extern	ft_memcpy
+
 global ft_memmove
 
 section .text
@@ -12,7 +14,7 @@ ft_memmove:
 
 	cmp		rdi, rsi
 	je		.done
-	jl		.forward
+	jl		ft_memcpy
 
 .backward:
 	add		rdi, rdx
@@ -30,12 +32,6 @@ ft_memmove:
 
 	dec	rdx
 	jnz		.loop
-
-	jmp		.done
-
-.forward:
-	mov		rcx, rdx
-	rep		movsb
 
 .done:
 	ret

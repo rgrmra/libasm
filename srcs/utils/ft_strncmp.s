@@ -7,28 +7,14 @@ section .text
 ; int ft_strncmp(const char *s1, const char *s2, size_t n);
 ft_strncmp:
 	xor		rax, rax
-	test	rdx, rdx
-	jz		.done
+	mov		rcx, rdx
 
-.loop:
-	movzx	eax, byte [rdi]
-	movzx	ecx, byte [rsi]
+	repe	cmpsb
+	je		.true
 
-	cmp		al, cl
-	jne		.finish
-
-	test	al, al
-	jz		.finish
-
-	dec		rdx
-	jz		.finish
-
-	inc		rdi
-	inc		rsi
-	jmp		.loop
-
-.finish:
+	movzx	eax, byte [rdi - 1]
+	movzx	ecx, byte [rsi - 1]
 	sub		eax, ecx
 
-.done:
+.true:
 	ret

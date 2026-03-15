@@ -6,7 +6,7 @@ section .text
 
 ; void *ft_bzero(void *s, size_t n);
 ft_bzero:
-	xor		rax, rax
+	xor		al, al
 	mov		rcx, rsi
 	rep		stosb
 	ret

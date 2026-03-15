@@ -6,8 +6,15 @@ section .text
 
 ; int ft_isdigit(int c);
 ft_isdigit:
-	sub		edi, 48
-	cmp		edi, 9
-	setbe	al
-	movzx	eax, al
+	cmp		edi, '0'
+	jl		.false
+
+	cmp		edi, '9'
+	jg		.false
+
+	mov		rax, 1
+	ret
+
+.false:
+	xor		rax, rax
 	ret

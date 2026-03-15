@@ -6,14 +6,16 @@ section .text
 
 ; void *ft_memchr(const void *s, int c, size_t n);
 ft_memchr:
-	mov		rax, rsi
+	mov		al, sil
 	mov		rcx, rdx
-	repne	scasb
 
-	jnz		.not_found
-	lea		rax, [rdi - 1]
+	repne	scasb
+	jnz		.false
+
+	dec		rdi
+	mov		rax, rdi
 	ret
 
-.not_found:
+.false:
 	xor		rax, rax
 	ret

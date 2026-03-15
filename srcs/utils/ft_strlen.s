@@ -8,16 +8,12 @@ section .text
 
 ; size_t ft_strlen(const char *str);
 ft_strlen:
-	mov		rax, rdi
+	xor		al, al
+	mov		rcx, -1
 
-.loop:
-	cmp		byte [rax], 0
-	je		.done
+	repne	scasb
+	not		rcx
+	dec		rcx
 
-	inc		rax
-
-	jmp		.loop
-
-.done:
-	sub		rax, rdi
+	mov		rax, rcx
 	ret
