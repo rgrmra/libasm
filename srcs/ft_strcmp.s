@@ -24,3 +24,5 @@ ft_strcmp:
 .end:
 	sub		eax, edx
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

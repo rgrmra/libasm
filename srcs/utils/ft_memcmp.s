@@ -9,6 +9,7 @@ ft_memcmp:
 	xor		rax, rax
 	mov		rcx, rdx
 
+	cld
 	repe	cmpsb
 	je		.true
 
@@ -18,3 +19,5 @@ ft_memcmp:
 
 .true:
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

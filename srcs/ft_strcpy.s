@@ -16,6 +16,8 @@ ft_strcpy:
 	inc		rdi
 
 	test	dl, dl
-	jne		.loop
+	jnz		.loop
 
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

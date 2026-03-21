@@ -1,5 +1,6 @@
 bits 64
 
+default rel
 extern ft_strlen
 
 global ft_strrchr
@@ -10,7 +11,7 @@ section .text
 ft_strrchr:
 	push	rdi
 	push	rsi
-	call	ft_strlen
+	call	ft_strlen wrt ..plt
 
 	pop		rsi
 	pop		rdi
@@ -35,3 +36,5 @@ ft_strrchr:
 .not_found:
 	xor		rax, rax
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

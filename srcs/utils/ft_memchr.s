@@ -12,6 +12,7 @@ ft_memchr:
 	mov		al, sil
 	mov		rcx, rdx
 
+	cld
 	repne	scasb
 	jnz		.false
 
@@ -22,3 +23,5 @@ ft_memchr:
 .false:
 	xor		rax, rax
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

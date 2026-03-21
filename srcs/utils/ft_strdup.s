@@ -14,12 +14,17 @@ ft_strdup:
 
 	xor		al, al
 	mov		rcx, -1
+	cld
 	repne 	scasb
 	not		rcx
 
 	push	rcx
+	sub		rsp, 8
+
 	mov		rdi, rcx
 	call	malloc wrt ..plt
+
+	add		rsp, 8
 	pop		rcx
 
 	test	rax, rax
@@ -27,8 +32,11 @@ ft_strdup:
 
 	mov		rdi, rax
 	mov		rsi, rbx
+	cld
 	rep		movsb
 
 .done:
 	pop		rbx
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

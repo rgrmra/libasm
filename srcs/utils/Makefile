@@ -6,7 +6,7 @@
 #    By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/14 10:58:53 by rde-mour          #+#    #+#              #
-#    Updated: 2026/03/15 13:08:00 by rde-mour         ###   ########.org.br    #
+#    Updated: 2026/03/21 08:23:34 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,20 +40,20 @@ SRCS				= ft_isalpha.s \
 					  ft_memmove.s \
 					  ft_strdup.s \
 					  ft_strlcpy.s \
-					  ft_strlcat.s \
-#					  ft_atoi.s \
-#					  ft_calloc.s \
-#					  ft_strnstr.s \
+					  ft_atoi.s \
+					  ft_calloc.s \
+					  ft_strnstr.s \
+					  ft_putchar_fd.s \
+					  ft_putstr_fd.s \
+					  ft_putendl_fd.s \
+#					  ft_putnbr_fd.s \
+#					  ft_strlcat.s \
 #					  ft_substr.s \
 #					  ft_strjoin.s \
 #					  ft_strtrim.s \
 #					  ft_itoa.s \
 #					  ft_strmapi.s \
 #					  ft_striteri.s \
-#					  ft_putchar_fd.s \
-#					  ft_putstr_fd.s \
-#					  ft_putendl_fd.s \
-#					  ft_putnbr_fd.s \
 #					  ft_split.s
 
 #BONUS				= ft_lstnew_bonus.s \

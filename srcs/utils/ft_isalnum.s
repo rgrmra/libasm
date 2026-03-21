@@ -8,12 +8,14 @@ section .text
 ft_isalnum:
 	cmp		edi, '0'
 	jl		.false
+
 	cmp		edi, '9'
 	jle		.true
 
 	or		edi, 32
 	cmp		edi, 'a'
 	jl		.false
+
 	cmp		edi, 'z'
 	jg		.false
 
@@ -24,3 +26,5 @@ ft_isalnum:
 .false:
 	xor		rax, rax
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

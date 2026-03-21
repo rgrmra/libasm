@@ -4,20 +4,16 @@ global ft_strlen
 
 section .text
 
-section .text
-
 ; size_t ft_strlen(const char *str);
 ft_strlen:
-	mov		rax, rdi
+	xor		al, al
+	mov		rcx, -1
+	cld
+	repne	scasb
+	not		rcx
+	dec		rcx
 
-.loop:
-	cmp		byte [rax], 0
-	je		.end
-
-	inc		rax
-
-	jmp		.loop
-
-.end:
-	sub		rax, rdi
+	mov		rax, rcx
 	ret
+	
+section .note.GNU-stack noalloc noexec nowrite progbits

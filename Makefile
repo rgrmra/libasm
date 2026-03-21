@@ -6,9 +6,11 @@
 #    By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/11 07:31:18 by rde-mour          #+#    #+#              #
-#    Updated: 2026/03/14 18:50:39 by rde-mour         ###   ########.org.br    #
+#    Updated: 2026/03/21 08:38:08 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
+
+# = COLORS =====================================================================
 
 RED					:= $(shell tput setaf 1)
 GREEN				:= $(shell tput setaf 2)
@@ -18,73 +20,114 @@ MAGENTA				:= $(shell tput setaf 5)
 RESET				:= $(shell tput sgr0)
 
 
+# NAMES ========================================================================
+
 NAME				:= libasm.a
+NAME_TEST			:= libasm_test
 
-FILES				:= ft_strlen.s \
-					   ft_strcpy.s \
-					   ft_strcmp.s \
-					   ft_write.s \
-					   ft_read.s \
-					   ft_strdup.s
 
-FILES_BONUS			:= ft_atoi_base.s \
-					   ft_list_push_front.s \
-					   ft_list_size.s \
-					   ft_list_sort.s \
-					   ft_list_remove_if.s
+# DIRECTORIES ==================================================================
 
-SRCSDIR				:= ./srcs
-OBJSDIR 			:= ./objs
+SRCSDIR				:= srcs
+BONUSDIR			:= $(SRCSDIR)/bonus
+OBJSDIR				:= objs
+TESTDIR				:= tests
+TESTBONUSDIR 		:= $(TESTDIR)/bonus
+INCDIR				:= includes
 
-INCLUDES			:= includes
-BONUS				:= bonus
 
-SRCSDIR_BONUS		:= $(SRCSDIR)/$(BONUS)
-OBJSDIR_BONUS		:= $(OBJSDIR)/$(BONUS)
-INCLUDES_BONUS		:= $(INCLUDES)/$(BONUS)
+# FILES ========================================================================
 
-SRCS				:= $(FILES:%.s=$(SRCSDIR)/%.s)
-OBJS				:= $(FILES:%.s=$(OBJSDIR)/%.o)
-OBJS_BONUS			:= $(FILES_BONUS:%.c=%.o)
+FILES				:=	ft_strlen.s \
+						ft_strcpy.s \
+						ft_strcmp.s \
+						ft_write.s \
+						ft_read.s \
+						ft_strdup.s
 
-MESSAGE				:= mandatory
+FILES_BONUS 		:= ft_atoi_base_bonus.s \
+					   ft_list_push_front_bonus.s \
+					   ft_list_size_bonus.s \
+					   ft_list_sort_bonus.s \
+					   ft_list_remove_if_bonus.s
+
+
+# SOURCES ======================================================================
+
+SOURCES				:= $(addprefix $(SRCSDIR)/, $(FILES))
+OBJECTS				:= $(addprefix $(OBJSDIR)/, $(FILES:%.s=%.o))
+
+SOURCES_BONUS		:= $(addprefix $(BONUSDIR)/, $(FILES_BONUS))
+OBJECTS_BONUS		:= $(addprefix $(OBJSDIR)/bonus/, $(FILES_BONUS:%.s=%.o))
+
+SOURCES_TEST 		:= $(TESTDIR)/main.c \
+					   $(addprefix $(TESTDIR)/, $(FILES:%.s=%_test.c)) \
+					   $(addprefix $(TESTBONUSDIR)/, $(FILES_BONUS:%.s=%_test.c)) 
+
+OBJECTS_TEST		:= $(patsubst $(TESTDIR)/%.c,$(OBJSDIR)/tests/%.o,$(SOURCES_TEST))
+
+
+# COMPILERS ====================================================================
 
 NASM				:= nasm
-
 NASMFLAGS			:= -f elf64
 
+CC					:= cc
+CFLAGS				:= -Wall -Wextra -Werror -O3
 
-ifdef				WITH_BONUS
-	SRCS			:= $(FILES_BONUS:%.s=$(SRCSDIR_BONUS)/%_bonus.s)
-	OBJS			:= $(FILES_BONUS:%.s=$(OBJSDIR_BONUS)/%_bonus.o)
-	INCLUDES		:= $(INCLUDES_BONUS)
-	MESSAGE			:= bonus
-endif
+AR					:= ar rcs
 
 
-all:				$(NAME)
+# RULES ========================================================================
 
-$(NAME): 			$(OBJS)
-					@ar rcs $(NAME) $(OBJS)
-					@echo "$(GREEN)Added to $(RESET)$(NAME)"
-					@echo "$(BLUE)Compiled $(MESSAGE) successfully"
+all: $(NAME)
 
-$(OBJSDIR)/%.o: 	$(SRCSDIR)/%.s
-					@mkdir -p $(@D)
-					@$(NASM) $(NASMFLAGS) $< -o $@
-					@echo "$(GREEN)Compiled $(RESET)$(notdir $<)"
+$(NAME): $(OBJECTS)
+	@$(AR) $(NAME) $(OBJECTS)
+	@echo "$(GREEN)Added to $(RESET)$(NAME)"
+	@echo "$(BLUE)Compiled mandatory successfully$(RESET)"
 
-bonus:
-					@make WITH_BONUS=TRUE --no-print-directory
+bonus: $(OBJECTS_BONUS)
+	@$(AR) $(NAME) $(OBJECTS_BONUS)
+	@echo "$(GREEN)Added to $(RESET)$(NAME)"
+	@echo "$(BLUE)Compiled bonus successfully$(RESET)"
+
+test: all bonus $(OBJECTS_TEST)
+	@$(CC) $(CFLAGS) $(OBJECTS_TEST) -I$(INCDIR) -L. -lasm -o $(NAME_TEST)
+	@echo "$(GREEN)Added to $(RESET)$(NAME_TEST)"
+	@echo "$(BLUE)Compiled tests successfully$(RESET)"
+
+
+# COMPILE RULES ================================================================
+
+$(OBJSDIR)/%.o: $(SRCSDIR)/%.s
+	@mkdir -p $(@D)
+	@$(NASM) $(NASMFLAGS) $< -o $@
+	@echo "$(GREEN)Compiled$(RESET) $(notdir $<)"
+
+$(OBJSDIR)/bonus/%.o: $(BONUSDIR)/%.s
+	@mkdir -p $(@D)
+	@$(NASM) $(NASMFLAGS) $< -o $@
+	@echo "$(GREEN)Compiled$(RESET) $(notdir $<)"
+
+$(OBJSDIR)/tests/%.o: $(TESTDIR)/%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@echo "$(GREEN)Compiled$(RESET) $(notdir $<)"
+
+
+# CLEAN RULES =================================================================
 
 clean:
-					@echo "$(RED)Removing$(RESET) objects"
-					@rm -rf $(OBJSDIR)
+	@echo "$(RED)Removing$(RESET) objects"
+	@rm -rf $(OBJSDIR)
 
-fclean: 			clean
-					@echo "$(RED)Removing$(RESET) $(NAME)"
-					@rm -f $(NAME)
+fclean: clean
+	@echo "$(RED)Removing$(RESET) $(NAME)"
+	@rm -f $(NAME)
+	@echo "$(RED)Removing$(RESET) $(NAME_TEST)"
+	@rm -f $(NAME_TEST)
 
-re: 				fclean all
+re: fclean all
 
-.PHONY: 			all clean fclean bonus re
+.PHONY: all bonus test clean fclean re

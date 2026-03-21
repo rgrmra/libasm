@@ -9,6 +9,7 @@ ft_isalpha:
 	or		edi, 32
 	cmp		edi, 'a'
 	jl		.false
+
 	cmp		edi, 'z'
 	jg		.false
 
@@ -18,3 +19,5 @@ ft_isalpha:
 .false:
 	xor		rax, rax
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

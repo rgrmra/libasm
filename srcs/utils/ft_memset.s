@@ -10,7 +10,10 @@ ft_memset:
 
 	mov		rcx, rdx
 	mov		al, sil
+	cld
 	rep		stosb
 
 	mov		rax, r8
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

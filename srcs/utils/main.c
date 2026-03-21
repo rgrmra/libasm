@@ -1,20 +1,8 @@
-#include <stdlib.h>
+#include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include "libft.h"
 
-extern char *ft_strdup(const char *s);
-
-int main(void) {
-    char *s = "";
-    char *d = ft_strdup(s);
-    if (!d) return 1;
-    printf("'%s'\n", d);
-    free(d);
-    return 0;
-}
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include "libft.h"
-//
 ////int	main(void)
 ////{
 ////	char	*str = "hello, world!\n";
@@ -32,16 +20,12 @@ int main(void) {
 ////	return (EXIT_SUCCESS);
 ////}
 //
-//int	main(void)
-//{
-//	char	*str = "hello, world!";
-//	char	*dst = ft_strdup(str);
-//
-//	printf("%s\n", str);
-//	if (!dst)
-//		return (EXIT_FAILURE);
-//	printf("%s\n", str);
-//	printf("%s\n", dst);
-//	free(dst);
-//	return (EXIT_SUCCESS);
-//}
+int	main(void)
+{
+	char	*str = "hello, world";
+	
+	ft_putendl_fd(str, 1);
+	printf("%d\n", errno);
+
+	return (EXIT_SUCCESS);
+}

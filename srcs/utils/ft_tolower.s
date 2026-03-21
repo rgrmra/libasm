@@ -7,11 +7,16 @@ section .text
 ; int ft_tolower(int c);
 ft_tolower:
 	mov		eax, edi
+
 	cmp		al, 'A'
 	jb		.end
+
 	cmp		al, 'Z'
 	ja		.end
+
 	or		al, 32
 
 .end:
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

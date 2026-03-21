@@ -10,6 +10,18 @@ section .text
 ft_memmove:
 	mov		rax, rdi
 
+	test	rdi, rdi
+	jnz		.check
+
+	test	rsi, rsi
+	jnz		.check
+
+	ret
+
+.check:
+	cmp		rdi, rsi
+	je		.done
+
 	test	rdx, rdx
 	jz		.done
 
@@ -28,7 +40,10 @@ ft_memmove:
 	jmp		.done
 
 .backward:
+	cld
 	rep		movsb
 
 .done:
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

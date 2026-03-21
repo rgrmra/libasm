@@ -8,5 +8,8 @@ section .text
 ft_bzero:
 	xor		al, al
 	mov		rcx, rsi
+	cld
 	rep		stosb
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

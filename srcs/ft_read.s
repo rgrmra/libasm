@@ -1,5 +1,6 @@
 bits 64
 
+default rel
 extern __errno_location
 
 global ft_read
@@ -12,14 +13,15 @@ ft_read:
 	syscall
 
 	test	rax, rax
-	js		.set_errno
+	jns		.done
 
-	ret
-
-.set_errno:
 	neg		rax
 	mov		rdi, rax
-	call	__errno_location
-	mov		[rax], edi
+	call	__errno_location wrt ..plt
+	mov		dword [rax], edi
 	mov		rax, -1
+
+.done:
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

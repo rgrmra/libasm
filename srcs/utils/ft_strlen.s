@@ -11,9 +11,12 @@ ft_strlen:
 	xor		al, al
 	mov		rcx, -1
 
+	cld
 	repne	scasb
 	not		rcx
 	dec		rcx
 
 	mov		rax, rcx
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

@@ -18,3 +18,5 @@ ft_isdigit:
 .false:
 	xor		rax, rax
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

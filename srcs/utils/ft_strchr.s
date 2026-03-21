@@ -6,6 +6,8 @@ section .text
 
 ; char *ft_strchr(const char *s, int c);
 ft_strchr:
+	cld
+
 	mov		r8, rdi
 	mov		rcx, -1
 	xor		al, al

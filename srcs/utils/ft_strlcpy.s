@@ -15,9 +15,11 @@ ft_strlcpy:
 	mov		rdi, rsi
 	mov		rcx, -1
 	xor		al, al
+	cld
 	repne	scasb
 	not		rcx
 	dec		rcx
+
 	mov		rax, rcx
 
 	test	rdx, rdx
@@ -27,12 +29,14 @@ ft_strlcpy:
 	dec		r10
 	cmp		rcx, r10
 	jb		.copy
+
 	mov		rcx, r10
 
 .copy:
 	mov		rdi, r8
 	mov		rsi, r9
 	rep		movsb
+
 	mov		byte [rdi], 0
 
 .done:

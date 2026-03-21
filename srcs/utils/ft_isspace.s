@@ -22,3 +22,5 @@ ft_isspace:
 .false:
 	xor		eax, eax
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

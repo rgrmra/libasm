@@ -1,7 +1,6 @@
 bits 64
 
-extern ft_strcpy
-extern ft_strlen
+default rel
 extern malloc
 
 global ft_strdup
@@ -10,18 +9,34 @@ section .text
 
 ; char *ft_strdup(const char *s);
 ft_strdup:
-	push	rdi
-	call	ft_strlen
+	push	rbx
+	mov		rbx, rdi
 
-	mov		rdi, rax
-	inc		rdi
+	xor		al, al
+	mov		rcx, -1
+	cld
+	repne 	scasb
+	not		rcx
+
+	push	rcx
+	sub		rsp, 8
+
+	mov		rdi, rcx
 	call	malloc wrt ..plt
+
+	add		rsp, 8
+	pop		rcx
+
 	test	rax, rax
-	je		.end
+	jz		.done
 
 	mov		rdi, rax
-	pop		rsi
-	call	ft_strcpy
+	mov		rsi, rbx
+	cld
+	rep		movsb
 
-.end:
+.done:
+	pop		rbx
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits
