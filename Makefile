@@ -6,11 +6,11 @@
 #    By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/11 07:31:18 by rde-mour          #+#    #+#              #
-#    Updated: 2026/03/21 08:38:08 by rde-mour         ###   ########.org.br    #
+#    Updated: 2026/10/02 07:36:25 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
-# = COLORS =====================================================================
+# COLORS =======================================================================
 
 RED					:= $(shell tput setaf 1)
 GREEN				:= $(shell tput setaf 2)
@@ -115,6 +115,10 @@ $(OBJSDIR)/tests/%.o: $(TESTDIR)/%.c
 	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 	@echo "$(GREEN)Compiled$(RESET) $(notdir $<)"
 
+$(OBJSDIR)/tests/bonus/%.o: $(TESTDIR)/bonus/%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	@echo "$(GREEN)Compiled$(RESET) $(notdir $<)"
 
 # CLEAN RULES =================================================================
 
