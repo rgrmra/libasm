@@ -6,14 +6,19 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 10:49:35 by rde-mour          #+#    #+#             */
-/*   Updated: 2026/10/03 18:53:57 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2026/10/06 22:49:11 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libasm.h"
 #include "utest.h"
 
-UTEST(ft_atoi_base, empty_string)
+UTEST(ft_atoi_base, null_string_and_base)
+{
+	ASSERT_EQ(ft_atoi_base(NULL, NULL), 0);
+}
+
+UTEST(ft_atoi_base, null_string)
 {
 	char	*str;
 	char	*base;
@@ -51,6 +56,16 @@ UTEST(ft_atoi_base, one_char_base)
 	str = "10";
 	base = "0";
 	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, two_char_base)
+{
+	char	*str;
+	char	*base;
+
+	str = "10";
+	base = "01";
+	ASSERT_EQ(ft_atoi_base(str, base), 2);
 }
 
 UTEST(ft_atoi_base, duplicated_base)
@@ -321,4 +336,44 @@ UTEST(ft_atoi_base, number)
 	str = "42";
 	base = "0123456789";
 	ASSERT_EQ(ft_atoi_base(str, base), 42);
+}
+
+UTEST(ft_atoi_base, octal)
+{
+	char	*str;
+	char	*base;
+
+	str = "10";
+	base = "01234567";
+	ASSERT_EQ(ft_atoi_base(str, base), 8);
+}
+
+UTEST(ft_atoi_base, double_octal)
+{
+	char	*str;
+	char	*base;
+
+	str = "20";
+	base = "01234567";
+	ASSERT_EQ(ft_atoi_base(str, base), 16);
+}
+
+UTEST(ft_atoi_base, binary)
+{
+	char	*str;
+	char	*base;
+
+	str = "100";
+	base = "01";
+	ASSERT_EQ(ft_atoi_base(str, base), 4);
+}
+
+UTEST(ft_atoi_base, double_binary)
+{
+	char	*str;
+	char	*base;
+
+	str = "1000";
+	base = "01";
+	ASSERT_EQ(ft_atoi_base(str, base), 8);
 }

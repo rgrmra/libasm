@@ -10,6 +10,8 @@ section .text
 ; char *ft_strdup(const char *s);
 ft_strdup:
 	push	rbx
+	sub		rsp, 8
+
 	mov		rbx, rdi
 
 	xor		al, al
@@ -19,23 +21,22 @@ ft_strdup:
 	not		rcx
 
 	push	rcx
-	sub		rsp, 8
 
 	mov		rdi, rcx
 	call	malloc wrt ..plt
 
-	add		rsp, 8
 	pop		rcx
 
 	test	rax, rax
-	jz		.done
+	jz		.end
 
 	mov		rdi, rax
 	mov		rsi, rbx
 	cld
 	rep		movsb
 
-.done:
+.end:
+	add		rsp, 8
 	pop		rbx
 	ret
 

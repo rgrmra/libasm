@@ -13,7 +13,7 @@ ft_read:
 	syscall
 
 	test	rax, rax
-	jns		.done
+	jns		.end
 
 	neg		rax
 	mov		rdi, rax
@@ -21,7 +21,7 @@ ft_read:
 	mov		dword [rax], edi
 	mov		rax, -1
 
-.done:
+.end:
 	ret
 
 section .note.GNU-stack noalloc noexec nowrite progbits

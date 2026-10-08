@@ -8,70 +8,70 @@ section .text
 ft_atoi_base:
 	push	r12
 	
-	test    rdi, rdi
-	je      .error
+	test	rdi, rdi
+	je		.error
 	
-	test    rsi, rsi
-	je      .error
+	test	rsi, rsi
+	je		.error
 	
-	mov     rax, rsi
-	dec     rax
+	mov		rax, rsi
+	dec		rax
 	
-	mov     r8, rdi
-	mov     r9, rsi
+	mov		r8, rdi
+	mov		r9, rsi
 	
 .check_base_invalid_characters:
-	inc     rax
+	inc		rax
 	
-	cmp     byte [rax], 0
-	je      .check_base_size
+	cmp		byte [rax], 0
+	je		.check_base_size
 	
-	cmp     byte [rax], '+'
-	je      .error
+	cmp		byte [rax], '+'
+	je		.error
 	
-	cmp     byte [rax], '-'
-	je      .error
+	cmp		byte [rax], '-'
+	je		.error
 	
-	cmp     byte [rax], ' '
-	je      .error
+	cmp		byte [rax], ' '
+	je		.error
 	
-	cmp     byte [rax], 9
-	jb      .check_base_invalid_characters
+	cmp		byte [rax], 9
+	jb		.check_base_invalid_characters
 	
-	cmp     byte [rax], 13
-	ja      .check_base_invalid_characters
+	cmp		byte [rax], 13
+	ja		.check_base_invalid_characters
 	
-	jmp     .error
+	jmp		.error
 	
 .check_base_size:
-	sub     rax, r9
-	cmp     rax, 2
-	jl      .error
+	sub		rax, r9
+	cmp		rax, 2
+	jl		.error
 	
-	mov     r10, rax
-	xor     r11, r11
+	mov		r10, rax
+	xor		r11, r11
 	
 .check_base_double_characters:
-	cmp     r11, r10
-	jge     .check_number
+	cmp		r11, r10
+	jge		.check_number
 	
 	movzx	eax, byte [r9 + r11]
 	
-	lea     rdi, [r9 + r11 + 1]
+	lea		rdi, [r9 + r11 + 1]
 	
-	mov     rcx, r10
-	sub     rcx, r11
-	dec     rcx
+	mov		rcx, r10
+	sub		rcx, r11
+	dec		rcx
 	
 	jz		.next_base_character
 	
 	cld
 	repne   scasb
-	je      .error
+	je		.error
 	
 .next_base_character:
-	inc     r11
-	jmp     .check_base_double_characters
+	inc		r11
+	jmp		.check_base_double_characters
 	
 .check_number:
 	dec		r8
@@ -120,7 +120,6 @@ ft_atoi_base:
 	
 	mov		rdi, r9
 	mov		rcx, r10
-	dec		rcx
 	
 	cld
 	repne	scasb
@@ -140,10 +139,9 @@ ft_atoi_base:
 	jmp		.convert_number
 	
 .error:
-	xor     rax, rax
+	xor		rax, rax
 	
 	pop		r12
-	
 	ret
 	
 .end:
@@ -151,7 +149,6 @@ ft_atoi_base:
 	imul	rax, r11
 	
 	pop		r12
-	
 	ret
 
 section .note.GNU-stack noalloc noexec nowrite progbits
