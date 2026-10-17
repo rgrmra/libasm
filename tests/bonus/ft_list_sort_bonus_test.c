@@ -6,14 +6,14 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 10:49:35 by rde-mour          #+#    #+#             */
-/*   Updated: 2026/10/06 22:21:32 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2026/10/17 17:28:36 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libasm_bonus.h"
+#include "utest.h"
 #include <string.h>
 #include <unistd.h>
-#include "libasm.h"
-#include "utest.h"
 
 static int	asc(int a, int b)
 {

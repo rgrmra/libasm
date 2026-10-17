@@ -6,7 +6,7 @@
 #    By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/11 07:31:18 by rde-mour          #+#    #+#              #
-#    Updated: 2026/10/17 16:53:18 by rde-mour         ###   ########.org.br    #
+#    Updated: 2026/10/17 17:34:05 by rde-mour         ###   ########.org.br    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ FILES_BONUS 	:= ft_atoi_base_bonus.s \
 				   ft_list_push_front_bonus.s \
 				   ft_list_size_bonus.s \
 				   ft_list_sort_bonus.s \
-				   ft_list_remove_if_bonus.s
+				   ft_list_remove_if_bonus.s \
+				   ft_simd_memchr_bonus.s
 
 
 # SOURCES ======================================================================
