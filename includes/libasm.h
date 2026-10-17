@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 10:43:44 by rde-mour          #+#    #+#             */
-/*   Updated: 2026/03/16 10:48:55 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2026/10/17 16:53:04 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*ft_strcpy(char *dst, const char *src);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *str);
 ssize_t	ft_write(int fd, const void *buf, size_t count);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 void	ft_list_push_front(t_list **begin_list, void *data);
 int		ft_list_size(t_list *begin_list);
