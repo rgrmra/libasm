@@ -49,4 +49,4 @@ ft_calloc:
 .end:
 	ret
 
-section .note.GNO-stack noalloc noexec nowrite progbits
+section .note.GNU-stack noalloc noexec nowrite progbits
