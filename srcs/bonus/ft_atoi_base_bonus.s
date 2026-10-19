@@ -96,24 +96,22 @@ ft_atoi_base:
 	
 	jmp		.skip_space
 	
+.plus_sign:
+	mov		r11, 1
+	inc		r8
+	jmp		.convert_number
+	
+.minus_sign:
+	mov		r11, -1
+	inc		r8
+	jmp		.convert_number
+	
 .check_sign:
 	cmp		byte [r8], '+'
 	je		.plus_sign
 	
 	cmp		byte [r8], '-'
 	je		.minus_sign
-	
-	jmp		.convert_number
-	
-.plus_sign:
-	mov		r11, 1
-	inc		r8
-	jmp		.check_sign
-	
-.minus_sign:
-	mov		r11, -1
-	inc		r8
-	jmp		.check_sign
 	
 .convert_number:
 	movzx	eax, byte [r8]

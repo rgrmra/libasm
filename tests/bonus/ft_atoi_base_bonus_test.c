@@ -6,7 +6,7 @@
 /*   By: rde-mour <rde-mour@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 10:49:35 by rde-mour          #+#    #+#             */
-/*   Updated: 2026/10/17 17:28:01 by rde-mour         ###   ########.org.br   */
+/*   Updated: 2026/10/19 18:21:50 by rde-mour         ###   ########.org.br   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,4 +376,554 @@ UTEST(ft_atoi_base, double_binary)
 	str = "1000";
 	base = "01";
 	ASSERT_EQ(ft_atoi_base(str, base), 8);
+}
+
+UTEST(ft_atoi_base, empty_string)
+{
+	char	*str;
+	char	*base;
+
+	str = "";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, only_spaces)
+{
+	char	*str;
+	char	*base;
+
+	str = "   \t\n\v\r\f";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, only_plus_sign)
+{
+	char	*str;
+	char	*base;
+
+	str = "+";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, only_minus_sign)
+{
+	char	*str;
+	char	*base;
+
+	str = "-";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, positive_sign)
+{
+	char	*str;
+	char	*base;
+
+	str = "+42";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 42);
+}
+
+UTEST(ft_atoi_base, multiple_plus_signs)
+{
+	char	*str;
+	char	*base;
+
+	str = "++42";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, multiple_minus_signs)
+{
+	char	*str;
+	char	*base;
+
+	str = "--42";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, mixed_signs)
+{
+	char	*str;
+	char	*base;
+
+	str = "+-42";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, minus_plus_signs)
+{
+	char	*str;
+	char	*base;
+
+	str = "-+42";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, zero)
+{
+	char	*str;
+	char	*base;
+
+	str = "0";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, multiple_zeros)
+{
+	char	*str;
+	char	*base;
+
+	str = "000000";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, negative_zero)
+{
+	char	*str;
+	char	*base;
+
+	str = "-0";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, positive_zero)
+{
+	char	*str;
+	char	*base;
+
+	str = "+0";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, leading_zeros)
+{
+	char	*str;
+	char	*base;
+
+	str = "00042";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 42);
+}
+
+UTEST(ft_atoi_base, negative_leading_zeros)
+{
+	char	*str;
+	char	*base;
+
+	str = "-00042";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), -42);
+}
+
+UTEST(ft_atoi_base, invalid_first_character)
+{
+	char	*str;
+	char	*base;
+
+	str = "a42";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, invalid_character_after_number)
+{
+	char	*str;
+	char	*base;
+
+	str = "42abc";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 42);
+}
+
+UTEST(ft_atoi_base, invalid_character_in_number)
+{
+	char	*str;
+	char	*base;
+
+	str = "12a34";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 12);
+}
+
+UTEST(ft_atoi_base, spaces_after_number)
+{
+	char	*str;
+	char	*base;
+
+	str = "42   ";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 42);
+}
+
+UTEST(ft_atoi_base, spaces_before_sign)
+{
+	char	*str;
+	char	*base;
+
+	str = "   -42";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), -42);
+}
+
+UTEST(ft_atoi_base, spaces_between_sign_and_number)
+{
+	char	*str;
+	char	*base;
+
+	str = "- 42";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, sign_after_spaces_and_tabs)
+{
+	char	*str;
+	char	*base;
+
+	str = "\t \n\v -123";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), -123);
+}
+
+UTEST(ft_atoi_base, binary_zero)
+{
+	char	*str;
+	char	*base;
+
+	str = "0";
+	base = "01";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, binary_one)
+{
+	char	*str;
+	char	*base;
+
+	str = "1";
+	base = "01";
+	ASSERT_EQ(ft_atoi_base(str, base), 1);
+}
+
+UTEST(ft_atoi_base, binary_negative)
+{
+	char	*str;
+	char	*base;
+
+	str = "-101";
+	base = "01";
+	ASSERT_EQ(ft_atoi_base(str, base), -5);
+}
+
+UTEST(ft_atoi_base, binary_invalid_character)
+{
+	char	*str;
+	char	*base;
+
+	str = "102";
+	base = "01";
+	ASSERT_EQ(ft_atoi_base(str, base), 2);
+}
+
+UTEST(ft_atoi_base, octal_negative)
+{
+	char	*str;
+	char	*base;
+
+	str = "-10";
+	base = "01234567";
+	ASSERT_EQ(ft_atoi_base(str, base), -8);
+}
+
+UTEST(ft_atoi_base, hexadecimal_lowercase)
+{
+	char	*str;
+	char	*base;
+
+	str = "ff";
+	base = "0123456789abcdef";
+	ASSERT_EQ(ft_atoi_base(str, base), 255);
+}
+
+UTEST(ft_atoi_base, hexadecimal_uppercase)
+{
+	char	*str;
+	char	*base;
+
+	str = "FF";
+	base = "0123456789ABCDEF";
+	ASSERT_EQ(ft_atoi_base(str, base), 255);
+}
+
+UTEST(ft_atoi_base, hexadecimal_mixed_case_base)
+{
+	char	*str;
+	char	*base;
+
+	str = "aF";
+	base = "0123456789aBcDeF";
+	ASSERT_EQ(ft_atoi_base(str, base), 175);
+}
+
+UTEST(ft_atoi_base, hexadecimal_negative)
+{
+	char	*str;
+	char	*base;
+
+	str = "-FF";
+	base = "0123456789ABCDEF";
+	ASSERT_EQ(ft_atoi_base(str, base), -255);
+}
+
+UTEST(ft_atoi_base, hexadecimal_zero)
+{
+	char	*str;
+	char	*base;
+
+	str = "0";
+	base = "0123456789ABCDEF";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, hexadecimal_invalid_character)
+{
+	char	*str;
+	char	*base;
+
+	str = "1G";
+	base = "0123456789ABCDEF";
+	ASSERT_EQ(ft_atoi_base(str, base), 1);
+}
+
+UTEST(ft_atoi_base, base_with_duplicate_first_character)
+{
+	char	*str;
+	char	*base;
+
+	str = "10";
+	base = "00123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, base_with_duplicate_last_character)
+{
+	char	*str;
+	char	*base;
+
+	str = "10";
+	base = "01234567890";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, base_with_duplicate_letters)
+{
+	char	*str;
+	char	*base;
+
+	str = "10";
+	base = "0123456789aabc";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, base_with_carriage_return_and_newline)
+{
+	char	*str;
+	char	*base;
+
+	str = "10";
+	base = "0123456789\r\n";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, base_with_duplicate_sign)
+{
+	char	*str;
+	char	*base;
+
+	str = "10";
+	base = "0123456789++";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, base_with_duplicate_space)
+{
+	char	*str;
+	char	*base;
+
+	str = "10";
+	base = "0123456789  ";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, base_with_three_characters)
+{
+	char	*str;
+	char	*base;
+
+	str = "210";
+	base = "012";
+	ASSERT_EQ(ft_atoi_base(str, base), 21);
+}
+
+UTEST(ft_atoi_base, base_with_special_characters)
+{
+	char	*str;
+	char	*base;
+
+	str = "#@!";
+	base = "!@#";
+	ASSERT_EQ(ft_atoi_base(str, base), 21);
+}
+
+UTEST(ft_atoi_base, base_with_letters)
+{
+	char	*str;
+	char	*base;
+
+	str = "cab";
+	base = "abc";
+	ASSERT_EQ(ft_atoi_base(str, base), 19);
+}
+
+UTEST(ft_atoi_base, negative_base_with_letters)
+{
+	char	*str;
+	char	*base;
+
+	str = "-cab";
+	base = "abc";
+	ASSERT_EQ(ft_atoi_base(str, base), -19);
+}
+
+UTEST(ft_atoi_base, large_number)
+{
+	char	*str;
+	char	*base;
+
+	str = "123456789";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 123456789);
+}
+
+UTEST(ft_atoi_base, negative_large_number)
+{
+	char	*str;
+	char	*base;
+
+	str = "-123456789";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), -123456789);
+}
+
+UTEST(ft_atoi_base, max_int_with_positive_sign)
+{
+	char	*str;
+	char	*base;
+
+	str = "+2147483647";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 2147483647);
+}
+
+UTEST(ft_atoi_base, min_int_with_leading_zeros)
+{
+	char	*str;
+	char	*base;
+
+	str = "-0002147483648";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), -2147483648);
+}
+
+UTEST(ft_atoi_base, negative_overflow)
+{
+	char	*str;
+	char	*base;
+
+	str = "-2147483649";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 2147483647);
+}
+
+UTEST(ft_atoi_base, number_with_leading_whitespace_and_plus)
+{
+	char	*str;
+	char	*base;
+
+	str = " \t\n+42";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 42);
+}
+
+UTEST(ft_atoi_base, whitespace_after_sign)
+{
+	char	*str;
+	char	*base;
+
+	str = "+\t42";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, number_with_trailing_letters)
+{
+	char	*str;
+	char	*base;
+
+	str = "123abc";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 123);
+}
+
+UTEST(ft_atoi_base, number_with_prefix_invalid)
+{
+	char	*str;
+	char	*base;
+
+	str = "0xFF";
+	base = "0123456789ABCDEF";
+	ASSERT_EQ(ft_atoi_base(str, base), 0);
+}
+
+UTEST(ft_atoi_base, base_with_only_letters)
+{
+	char	*str;
+	char	*base;
+
+	str = "bca";
+	base = "abc";
+	ASSERT_EQ(ft_atoi_base(str, base), 15);
+}
+
+UTEST(ft_atoi_base, base_with_punctuation)
+{
+	char	*str;
+	char	*base;
+
+	str = "!?";
+	base = "?!";
+	ASSERT_EQ(ft_atoi_base(str, base), 2);
+}
+
+UTEST(ft_atoi_base, base_with_all_valid_digits)
+{
+	char	*str;
+	char	*base;
+
+	str = "9876543210";
+	base = "0123456789";
+	ASSERT_EQ(ft_atoi_base(str, base), 1286608618);
 }
